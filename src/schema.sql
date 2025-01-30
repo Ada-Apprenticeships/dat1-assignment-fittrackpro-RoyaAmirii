@@ -3,7 +3,7 @@
 -- Initial SQLite setup
 .open fittrackpro.db
 .mode column
-.read data/sample_data.sql
+--.read data/sample_data.sql
 -- Enable foreign key support
 PRAGMA foreign_keys = ON;
 -- Create your tables here
@@ -13,10 +13,12 @@ PRAGMA foreign_keys = ON;
 --     column2 datatype,
 --     ...
 -- );
-DROP TABLE IF EXISTS locations;
+
 
 -- TODO: Create the following tables:
 -- 1. locations
+DROP TABLE IF EXISTS locations;
+
 CREATE TABLE locations (
     location_id INTEGER PRIMARY KEY AUTOINCREMENT, --auto increment means you dont have to apply a value to location id, the database will do it itself, incrementing by 1
     name VARCHAR(255) NOT NULL,              
@@ -25,7 +27,26 @@ CREATE TABLE locations (
     email VARCHAR(255),                          
     opening_hours VARCHAR(255)                    
 );
+
+
 -- 2. members
+DROP TABLE IF EXISTS members;
+
+CREATE TABLE members (
+    member_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    phone_number VARCHAR(15),
+    date_of_birth DATE,                 --no VARCHAR because its an integer
+    join_date DATE NOT NULL,            --no VARCHAR because its an integer
+    emergency_contact_name VARCHAR(255),
+    emergency_contact_phone VARCHAR(15)
+);
+
+DROP TABLE IF EXISTS staff;
+
+
 
 -- 3. staff
 -- 4. equipment
