@@ -44,12 +44,24 @@ CREATE TABLE members (
     emergency_contact_phone VARCHAR(15)
 );
 
+-- 3. staff
 DROP TABLE IF EXISTS staff;
 
+CREATE TABLE staff (
+    staff_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    phone_number VARCHAR(15),
+    position VARCHAR(255) CHECK(position IN ('Trainer', 'Manager', 'Receptionist')) NOT NULL,
+    hire_date DATE NOT NULL,
+    location_id INTEGER
+);
 
 
--- 3. staff
 -- 4. equipment
+
+
 -- 5. classes
 -- 6. class_schedule
 -- 7. memberships
