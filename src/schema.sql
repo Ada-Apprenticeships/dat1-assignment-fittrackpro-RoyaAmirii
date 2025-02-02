@@ -99,7 +99,31 @@ CREATE TABLE class_schedule (
 );
 
 -- 7. memberships
+DROP TABLE IF EXISTS memberships;
+
+CREATE TABLE memberships (
+    membership_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    member_id INTEGER,
+    type TEXT CHECK(type IN ('Standard', 'Premium', 'VIP')) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    status TEXT CHECK(status IN ('Active', 'Inactive')) NOT NULL,
+    FOREIGN KEY (member_id) REFERENCES members(member_id)
+);
+
 -- 8. attendance
+DROP TABLE IF EXISTS attendance;
+
+CREATE TABLE attendance (
+    attendance_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    member_id INTEGER,
+    location_id INTEGER,
+    check_in_time DATETIME NOT NULL,
+    check_out_time DATETIME,
+    FOREIGN KEY (member_id) REFERENCES members(member_id),
+    FOREIGN KEY (location_id) REFERENCES locations(location_id)
+);
+
 -- 9. class_attendance
 -- 10. payments
 -- 11. personal_training_sessions
