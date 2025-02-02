@@ -60,9 +60,31 @@ CREATE TABLE staff (
 
 
 -- 4. equipment
+DROP TABLE IF EXISTS equipment;
 
+CREATE TABLE equipment (
+    equipment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(255) NOT NULL,
+    type TEXT CHECK(type IN ('Cardio', 'Strength')) NOT NULL,
+    purchase_date DATE NOT NULL,
+    last_maintenance_date DATE,
+    next_maintenance_date DATE,
+    location_id INTEGER
+);
 
 -- 5. classes
+DROP TABLE IF EXISTS classes;
+
+CREATE TABLE classes (
+    class_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    capacity INTEGER,
+    duration INTEGER,
+    location_id INTEGER,
+    FOREIGN KEY (location_id) REFERENCES locations(location_id)
+);
+
 -- 6. class_schedule
 -- 7. memberships
 -- 8. attendance
