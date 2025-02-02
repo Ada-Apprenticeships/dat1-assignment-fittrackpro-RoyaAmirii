@@ -125,6 +125,17 @@ CREATE TABLE attendance (
 );
 
 -- 9. class_attendance
+DROP TABLE IF EXISTS class_attendance;
+
+CREATE TABLE class_attendance (
+    class_attendance_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    schedule_id INTEGER,
+    member_id INTEGER,
+    attendance_status TEXT CHECK(attendance_status IN ('Registered', 'Attended', 'Unattended')) NOT NULL,
+    FOREIGN KEY (schedule_id) REFERENCES class_schedule(schedule_id),
+    FOREIGN KEY (member_id) REFERENCES members(member_id)
+);
+
 -- 10. payments
 -- 11. personal_training_sessions
 -- 12. member_health_metrics
