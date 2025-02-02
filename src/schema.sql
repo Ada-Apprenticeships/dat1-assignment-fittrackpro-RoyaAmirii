@@ -179,6 +179,17 @@ CREATE TABLE member_health_metrics (
 );
 
 -- 13. equipment_maintenance_log
+DROP TABLE IF EXISTS equipment_maintenance_log;
+
+CREATE TABLE equipment_maintenance_log (
+    log_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    equipment_id INTEGER,
+    maintenance_date DATE NOT NULL,
+    description TEXT,
+    staff_id INTEGER,
+    FOREIGN KEY (equipment_id) REFERENCES equipment(equipment_id),
+    FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
+);
 
 -- After creating the tables, you can import the sample data using:
 -- `.read data/sample_data.sql` in a sql file or `npm run import` in the terminal
