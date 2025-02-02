@@ -20,10 +20,10 @@ PRAGMA foreign_keys = ON;
 DROP TABLE IF EXISTS locations;
 
 CREATE TABLE locations (
-    location_id INTEGER PRIMARY KEY AUTOINCREMENT, --auto increment means you dont have to apply a value to location id, the database will do it itself, incrementing by 1
-    name VARCHAR(255) NOT NULL,              
+    location_id INTEGER PRIMARY KEY AUTOINCREMENT,  --auto increment means you dont have to apply a value to location id, the database will do it itself, incrementing by 1
+    name VARCHAR(255) NOT NULL,                     --VARCHAR(255) limits the word count to 255 words, 255 is the default number put into varchar    
     address VARCHAR(255) NOT NULL,              
-    phone_number VARCHAR(15),                   
+    phone_number INTEGER 
     email VARCHAR(255),                          
     opening_hours VARCHAR(255)                    
 );
@@ -33,15 +33,15 @@ CREATE TABLE locations (
 DROP TABLE IF EXISTS members;
 
 CREATE TABLE members (
-    member_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    member_id INTEGER PRIMARY KEY AUTOINCREMENT,    --PRIMARY KEY ensures rows dont have identical data
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    phone_number VARCHAR(15),
+    phone_number INTEGER,
     date_of_birth DATE,                 --no VARCHAR because its an integer
     join_date DATE NOT NULL,            --no VARCHAR because its an integer
     emergency_contact_name VARCHAR(255),
-    emergency_contact_phone VARCHAR(15)
+    emergency_contact_phone INTEGER
 );
 
 -- 3. staff
@@ -52,7 +52,7 @@ CREATE TABLE staff (
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    phone_number VARCHAR(15),
+    phone_number INTEGER,
     position VARCHAR(255) CHECK(position IN ('Trainer', 'Manager', 'Receptionist')) NOT NULL,
     hire_date DATE NOT NULL,
     location_id INTEGER
@@ -82,10 +82,22 @@ CREATE TABLE classes (
     capacity INTEGER,
     duration INTEGER,
     location_id INTEGER,
-    FOREIGN KEY (location_id) REFERENCES locations(location_id)
+    FOREIGN KEY (location_id) REFERENCES locations(location_id) --FOREIGN KEY is used to link each class to a location
 );
 
 -- 6. class_schedule
+DROP TABLE IF EXISTS class_schedule;
+
+CREATE TABLE class_schedule (
+    schedule_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    class_id INTEGER,
+    staff_id INTEGER,
+    start_time DATETIME NOT NULL,
+    end_time DATETIME NOT NULL,
+    FOREIGN KEY (class_id) REFERENCES classes(class_id), --FOREIGN KEY is used to link each class schedule to a class and a staff member.
+    FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
+);
+
 -- 7. memberships
 -- 8. attendance
 -- 9. class_attendance
