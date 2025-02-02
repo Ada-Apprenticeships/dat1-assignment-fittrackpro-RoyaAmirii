@@ -165,6 +165,19 @@ CREATE TABLE personal_training_sessions (
 );
 
 -- 12. member_health_metrics
+DROP TABLE IF EXISTS member_health_metrics;
+
+CREATE TABLE member_health_metrics (
+    metric_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    member_id INTEGER,
+    measurement_date DATE NOT NULL,
+    weight DECIMAL(5, 2),
+    body_fat_percentage DECIMAL(5, 2),
+    muscle_mass DECIMAL(5, 2),
+    bmi DECIMAL(5, 2),
+    FOREIGN KEY (member_id) REFERENCES members(member_id)
+);
+
 -- 13. equipment_maintenance_log
 
 -- After creating the tables, you can import the sample data using:
