@@ -53,7 +53,7 @@ CREATE TABLE staff (
     last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     phone_number INTEGER,
-    position VARCHAR(255) CHECK(position IN ('Trainer', 'Manager', 'Receptionist')) NOT NULL,
+    position VARCHAR(255) CHECK(position IN ('Trainer', 'Manager', 'Receptionist', 'Maintenance')) NOT NULL,
     hire_date DATE NOT NULL,
     location_id INTEGER
 );
@@ -137,6 +137,18 @@ CREATE TABLE class_attendance (
 );
 
 -- 10. payments
+DROP TABLE IF EXISTS payments;
+
+CREATE TABLE payments (
+    payment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    member_id INTEGER,
+    amount DECIMAL(10, 2) NOT NULL,
+    payment_date DATE NOT NULL,
+    payment_method TEXT CHECK(payment_method IN ('Credit Card', 'Bank Transfer', 'PayPal', 'Cash')) NOT NULL,
+    payment_type TEXT CHECK(payment_type IN ('Monthly membership fee', 'Day pass')) NOT NULL,
+    FOREIGN KEY (member_id) REFERENCES members(member_id)
+);
+
 -- 11. personal_training_sessions
 -- 12. member_health_metrics
 -- 13. equipment_maintenance_log
