@@ -22,7 +22,7 @@ ORDER BY check_in_time DESC;  --DESC to get most recent time first
 
 -- 3. Find the busiest day of the week based on gym visits
 -- TODO: Write a query to find the busiest day of the week based on gym visits
-SELECT strftime('%w', check_in_time) AS day_of_week,  -- gives the the weekday number e.g. 0 = Sunday, 6 = Saturday, from check-in time
+SELECT strftime('%w', check_in_time) AS day_of_week,  -- strftime is a date formatting function and %w gives the the weekday number e.g. 0 = Sunday, 6 = Saturday, from check-in time
        COUNT(*) AS visit_count  
 FROM attendance  
 GROUP BY day_of_week  
